@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import {Card, CardItem, Thumbnail, Text,Left, Body} from 'native-base';
 export default class CardImageExample extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showToast: false
+    };
+  }
+
   render() {
     return (
         <Card>
