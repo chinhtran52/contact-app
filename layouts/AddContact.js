@@ -2,23 +2,34 @@ import React, { Component } from 'react';
 import {Content, Item, Input, Icon ,Thumbnail} from 'native-base';
 import { StyleSheet,Button} from 'react-native';
 export default class AddContact extends Component {
-  static navigationOptions = ({navigation}) => {
-    const obj = {
-      name : 'Kit',
-      phone : '0703933281'
-    }
-    return{
-      title: 'Add New Contact',
-      headerRight: (
-        <Button
-          onPress={()=>navigation.navigate('Home',{
-            addObj : obj
-          })}
-          title="Save"
-        />
-      ),
-    }
+  constructor(props) { 
+    super(props); 
+    this.state = { 
+      name : '',
+      phone: '',
+    }; 
+  }
+
+  static navigationOptions = {
+    title: 'Add new contact',
   };
+
+  text = 'hello'
+
+  navigate = () => {
+    this.props.navigation.navigate('Home',{
+      addObj : {
+        name : this.state.name,
+        phone : this.state.phone
+      }
+    })
+  }
+
+  changeInfo = (event,target) => {
+    this.setState({
+      [target]: event,
+    });
+  }
 
   render() {
     return (
@@ -26,12 +37,13 @@ export default class AddContact extends Component {
           <Thumbnail style={styles.avatar} source={{uri: 'https://i.pinimg.com/474x/16/55/cd/1655cd86623d22c6ef4cc45d667544db.jpg'}} />
           <Item>
             <Icon active name='home' />
-            <Input placeholder='Tên'/>
+            <Input placeholder='Tên' onChangeText={(event,target)=>this.changeInfo(event,'name')}/>
           </Item>
           <Item>
             <Icon active name='home' />
-            <Input placeholder='Điện thoại'/>
+            <Input placeholder='Điện thoại' onChangeText={(event,target)=>this.changeInfo(event,'phone')}/>
           </Item>
+          <Button onPress={this.navigate} title="Save"/>
         </Content>
     );
   }
