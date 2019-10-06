@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import SearchBar from '../components/SearchBar.js'
 import Card from '../components/Card.js'
 import { Button,Icon,Text } from 'native-base';
-import { StyleSheet,ScrollView} from 'react-native'
+import {View, StyleSheet,ScrollView} from 'react-native'
 import {firebaseApp} from '../components/FirebaseConfig'
 
 export default class ContactList extends Component {
@@ -60,14 +60,16 @@ export default class ContactList extends Component {
       return <Card reload={this.listContacts} nav={()=>this.navigate(i.name,i.phone,i.keyid)} name={i.name} number={i.phone} key={index}/>
     })
     return (
+      <View>
+        <SearchBar/>
         <ScrollView>
-            <SearchBar/>
             {list}
-            <Button style={styles.add} rounded iconLeft onPress={() => this.props.navigation.navigate('Add')}>
-              <Icon name='person' />
-              <Text>Add Contact</Text>
-            </Button>
         </ScrollView>
+        <Button style={styles.add} rounded iconLeft onPress={() => this.props.navigation.navigate('Add')}>
+          <Icon name='person' />
+          <Text>Add Contact</Text>
+        </Button>
+      </View>
     );
   }
 }
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
   add: {
     position: 'absolute',
     width: 160,
-    right: 20,
-    bottom: 0
+    right: 15,
+    bottom: 60
   },
 });
